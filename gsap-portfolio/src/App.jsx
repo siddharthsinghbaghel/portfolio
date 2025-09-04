@@ -4,6 +4,8 @@ import { ScrollTrigger } from "https://esm.sh/gsap/ScrollTrigger";
 import { ScrollToPlugin } from "https://esm.sh/gsap/ScrollToPlugin";
 import { TextPlugin } from "https://esm.sh/gsap/TextPlugin";
 import * as Tone from 'https://cdn.skypack.dev/tone';
+import myPhoto from "../src/assets/myPhoto.jpg";
+import "./App.css";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, TextPlugin);
 
@@ -130,7 +132,19 @@ const MagneticLink = ({ children, ...props }) => {
 
 const Portfolio = () => {
   const containerRef = useRef(null);
+  const projectHoverTimeout = useRef(null);
 
+  const handleProjectMouseEnter = (url) => {
+    // Set a timer to open the URL after 2 seconds
+    projectHoverTimeout.current = setTimeout(() => {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }, 2000); // 2000 milliseconds = 2 seconds
+  };
+
+  const handleProjectMouseLeave = () => {
+    // If the mouse leaves before 2 seconds, cancel the timer
+    clearTimeout(projectHoverTimeout.current);
+  };
   const handleNavClick = (e, id) => {
     e.preventDefault();
     const section = document.getElementById(id);
@@ -224,6 +238,19 @@ const Portfolio = () => {
               ease: "power3.out"
           });
       });
+            // --- TOOLS & TECHNOLOGIES FLOATING ANIMATION ---
+      gsap.utils.toArray(".tool-icon").forEach((icon, i) => {
+        gsap.to(icon, {
+          y: i % 2 === 0 ? -10 : 10, // alternate up/down
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          duration: 2 + Math.random() * 1.5, // randomize speed a bit
+          delay: i * 0.1 // staggered start
+        });
+      });
+
+
       const timelineSVG = document.querySelector('.timeline-svg');
       if (timelineSVG) {
           gsap.fromTo(timelineSVG.querySelector('path'), 
@@ -280,21 +307,25 @@ const Portfolio = () => {
       document.body.style.overflow = "auto";
     };
   }, []);
+  
 
   return (
     <div ref={containerRef} className="font-mono text-cyan-200 bg-[#0A192F] min-h-screen selection:bg-cyan-500 selection:text-slate-900 md:cursor-none">
       <CustomCursor />
 
       <div className="fixed top-0 left-0 w-full h-full -z-10 bg-grid"></div>
+{/* --- LOADER --- */}
+<div className="loader fixed top-0 left-0 h-screen w-full bg-[#0A192F] z-[101] flex justify-center items-center overflow-hidden">
+  {/* Sci-fi background effect */}
+  <div className="absolute inset-0 jarvis-bg"></div>
+  
+  <div className="text-2xl font-bold text-cyan-300 w-96 text-center h-8 z-10">
+    <div className="loader-text-item relative w-full opacity-0">Initializing J.A.R.V.I.S. Protocol...</div>
+    <div className="loader-text-item relative w-full opacity-0">Calibrating Arc Reactor...</div>
+    <div className="loader-text-item absolute w-full opacity-0">Welcome, Siddharth</div>
+  </div>
+</div>
 
-      {/* --- LOADER --- */}
-      <div className="loader fixed top-0 left-0 h-screen w-full bg-[#0A192F] z-[101] flex justify-center items-center">
-        <div className="text-2xl font-bold text-cyan-300 w-96 text-center h-8">
-          <div className="loader-text-item absolute w-full opacity-0">Initializing J.A.R.V.I.S. Protocol...</div>
-          <div className="loader-text-item absolute w-full opacity-0">Calibrating Arc Reactor...</div>
-          <div className="loader-text-item absolute w-full opacity-0">Welcome, Tony.</div>
-        </div>
-      </div>
 
       <nav className="fixed top-0 left-0 right-0 bg-[#0A192F]/70 backdrop-blur-lg z-50 flex justify-center space-x-4 md:space-x-10 py-4 border-b border-cyan-300/20">
         <MagneticLink><a href="#about" onClick={(e) => handleNavClick(e, 'about')} className="nav-item cursor-pointer hover:text-cyan-300 transition-colors p-2 text-sm md:text-base">Identity</a></MagneticLink>
@@ -315,62 +346,122 @@ const Portfolio = () => {
               <polygon points="50 1 95 25 95 75 50 99 5 75 5 25" stroke="#0ff" strokeWidth="0.5" fill="none" />
             </svg>
             <div className="w-2/3 aspect-square rounded-full overflow-hidden shadow-2xl z-10">
-              <img src="https://placehold.co/500x500/0A192F/00FFFF?text=USER" alt="Profile" className="w-full h-full object-cover"/>
+              <img src={myPhoto} alt="Profile" className="w-full h-full object-cover"/>
             </div>
           </div>
           <div className="md:col-span-3 about-text-content">
-            <h2 className="text-4xl font-semibold mb-6 text-cyan-300">Identity Scan</h2>
-            <p className="text-lg text-cyan-200/80 leading-relaxed">Passionate web developer skilled in React, GSAP, and modern front-end technologies. I focus on building beautiful, intuitive, and high-performance web applications that leave a lasting impression.</p>
+            <h2 className="text-4xl font-semibold mb-6 text-cyan-300">Siddharth Singh Baghel</h2>
+            <p className="text-lg text-cyan-200/80 leading-relaxed">Passionate web developer and Data Engineer skilled in modern technologies like  react.js , Next.js ,Snowflake and ADF. I focus on building beautiful, intuitive, and high-performance web applications that leave a lasting impression.</p>
           </div>
         </div>
       </section>
 
-      <section id="projects" className="max-w-5xl mx-auto px-8 py-24 space-y-8 relative">
-        <div className="top-hover-zone absolute top-0 left-0 w-full h-[70px] z-20 cursor-pointer"></div>
-        <h2 className="text-4xl font-semibold mb-8 text-cyan-300">Armor Bay // Projects</h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="project-card bg-[#112240] p-6 rounded-lg shadow-lg cursor-pointer border border-cyan-300/20 hover:border-cyan-300 transition-all relative overflow-hidden">
-            <div className="scanline"></div>
-            <h3 className="text-xl font-semibold mb-3 text-cyan-300">Project MARK I</h3>
-            <p className="text-cyan-200/80">React portfolio with advanced animations and smooth scrolling.</p>
-          </div>
-          <div className="project-card bg-[#112240] p-6 rounded-lg shadow-lg cursor-pointer border border-cyan-300/20 hover:border-cyan-300 transition-all relative overflow-hidden">
-            <div className="scanline"></div>
-            <h3 className="text-xl font-semibold mb-3 text-cyan-300">Project MARK II</h3>
-            <p className="text-cyan-200/80">Interactive dashboard using GSAP and React hooks.</p>
-          </div>
-          <div className="project-card bg-[#112240] p-6 rounded-lg shadow-lg cursor-pointer border border-cyan-300/20 hover:border-cyan-300 transition-all relative overflow-hidden">
-            <div className="scanline"></div>
-            <h3 className="text-xl font-semibold mb-3 text-cyan-300">Project MARK III</h3>
-            <p className="text-cyan-200/80">3D animated website created with Three.js and React.</p>
-          </div>
-        </div>
-      </section>
+  {/* --- REPLACEMENT FOR PROJECTS SECTION --- */}
+      <section id="projects" className="max-w-5xl mx-auto px-8 py-24 space-y-8 relative">
+        <div className="top-hover-zone absolute top-0 left-0 w-full h-[70px] z-20 cursor-pointer"></div>
+        <h2 className="text-4xl font-semibold mb-8 text-cyan-300">Projects</h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          {[
+            { title: 'Project MARK I', description: 'Ride Hailing Application - Sawari', url: 'https://sawari-ui.onrender.com' },
+            { title: 'Project MARK II', description: 'Video Conferencing Application - InstaMeet', url: 'https://zoomyfrontend.onrender.com' },
+            { title: 'Project MARK III', description: 'Swiggy Revenue Generator Dashboard by Streamlit', url: '#' },
+            { title: 'Project MARK IV', description: 'Random GIF generator - RGG', url: 'https://random-gif-generator-ui.onrender.com' },
+            { title: 'Project MARK V', description: 'AI-Finance Platform - ArthiQ', url: 'http://finance-5zsxx2vn0-siddharth-singh-baghels-projects.vercel.app' }
+          ].map((project) => (
+            <div
+              key={project.title}
+              className="project-card bg-[#112240] p-6 rounded-lg shadow-lg cursor-pointer border border-cyan-300/20 hover:border-cyan-300 transition-all relative overflow-hidden"
+              onMouseEnter={() => handleProjectMouseEnter(project.url)}
+              onMouseLeave={handleProjectMouseLeave}
+            >
+              <div className="scanline"></div>
+              <h3 className="text-xl font-semibold mb-3 text-cyan-300">{project.title}</h3>
+              <p className="text-cyan-200/80">{project.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <section id="skills" className="max-w-5xl mx-auto px-8 py-24 relative">
         <div className="top-hover-zone absolute top-0 left-0 w-full h-[70px] z-20 cursor-pointer"></div>
-        <h2 className="text-4xl font-semibold mb-8 text-cyan-300">Tech Specs // Skills</h2>
+        <h2 className="text-4xl font-semibold mb-8 text-cyan-300">Skills</h2>
         <div className="space-y-6">
           <div>
-            <h4 className="mb-2 font-medium">React Core</h4>
+            <h4 className="mb-2 font-medium">HTML</h4>
             <div className="skill-bar-bg w-full h-4 rounded-full bg-cyan-900/50 border border-cyan-300/30">
               <div className="skill-bar h-full rounded-full bg-cyan-400" data-progress="90%" style={{boxShadow: '0 0 10px #0ff'}}></div>
             </div>
           </div>
           <div>
-            <h4 className="mb-2 font-medium">GSAP Animation Engine</h4>
+            <h4 className="mb-2 font-medium">Tailwind CSS Framework</h4>
             <div className="skill-bar-bg w-full h-4 rounded-full bg-cyan-900/50 border border-cyan-300/30">
               <div className="skill-bar h-full rounded-full bg-cyan-400" data-progress="85%" style={{boxShadow: '0 0 10px #0ff'}}></div>
             </div>
           </div>
           <div>
-            <h4 className="mb-2 font-medium">Tailwind CSS Framework</h4>
+            <h4 className="mb-2 font-medium">React</h4>
+            <div className="skill-bar-bg w-full h-4 rounded-full bg-cyan-900/50 border border-cyan-300/30">
+              <div className="skill-bar h-full rounded-full bg-cyan-400" data-progress="90%" style={{boxShadow: '0 0 10px #0ff'}}></div>
+            </div>
+          </div>
+          <div>
+            <h4 className="mb-2 font-medium">Next.js</h4>
+            <div className="skill-bar-bg w-full h-4 rounded-full bg-cyan-900/50 border border-cyan-300/30">
+              <div className="skill-bar h-full rounded-full bg-cyan-400" data-progress="50%" style={{boxShadow: '0 0 10px #0ff'}}></div>
+            </div>
+          </div>
+          <div>
+            <h4 className="mb-2 font-medium">Express js</h4>
+            <div className="skill-bar-bg w-full h-4 rounded-full bg-cyan-900/50 border border-cyan-300/30">
+              <div className="skill-bar h-full rounded-full bg-cyan-400" data-progress="82%" style={{boxShadow: '0 0 10px #0ff'}}></div>
+            </div>
+          </div>
+          <div>
+            <h4 className="mb-2 font-medium">Node.js</h4>
             <div className="skill-bar-bg w-full h-4 rounded-full bg-cyan-900/50 border border-cyan-300/30">
               <div className="skill-bar h-full rounded-full bg-cyan-400" data-progress="80%" style={{boxShadow: '0 0 10px #0ff'}}></div>
             </div>
           </div>
+          <div>
+            <h4 className="mb-2 font-medium">SQL</h4>
+            <div className="skill-bar-bg w-full h-4 rounded-full bg-cyan-900/50 border border-cyan-300/30">
+              <div className="skill-bar h-full rounded-full bg-cyan-400" data-progress="88%" style={{boxShadow: '0 0 10px #0ff'}}></div>
+            </div>
+          </div>
+          <div>
+            <h4 className="mb-2 font-medium">Snowflake</h4>
+            <div className="skill-bar-bg w-full h-4 rounded-full bg-cyan-900/50 border border-cyan-300/30">
+              <div className="skill-bar h-full rounded-full bg-cyan-400" data-progress="75%" style={{boxShadow: '0 0 10px #0ff'}}></div>
+            </div>
+          </div>
+          <div>
+            <h4 className="mb-2 font-medium">Azure Data Factory</h4>
+            <div className="skill-bar-bg w-full h-4 rounded-full bg-cyan-900/50 border border-cyan-300/30">
+              <div className="skill-bar h-full rounded-full bg-cyan-400" data-progress="70%" style={{boxShadow: '0 0 10px #0ff'}}></div>
+            </div>
+          </div>
         </div>
       </section>
+                 {/* --- TOOLS & TECHNOLOGIES --- */}
+      <section id="tools" className="max-w-5xl mx-auto px-8 py-24 relative">
+  <h2 className="text-4xl font-semibold mb-12 text-cyan-300">Tools & Technologies</h2>
+  <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-8 text-cyan-300 text-5xl justify-items-center">
+    <div className="tool-icon hover:text-cyan-400 transition-colors"><i className="devicon-html5-plain"></i></div>
+    <div className="tool-icon hover:text-cyan-400 transition-colors"><i className="devicon-css3-plain"></i></div>
+    <div className="tool-icon hover:text-cyan-400 transition-colors"><i className="devicon-javascript-plain"></i></div>
+    <div className="tool-icon hover:text-cyan-400 transition-colors"><i className="devicon-tailwindcss-plain"></i></div>
+    <div className="tool-icon hover:text-cyan-400 transition-colors"><i className="devicon-react-original"></i></div>
+    <div className="tool-icon hover:text-cyan-400 transition-colors"><i className="devicon-nextjs-original"></i></div>
+    <div className="tool-icon hover:text-cyan-400 transition-colors"><i className="devicon-express-original"></i></div>
+    <div className="tool-icon hover:text-cyan-400 transition-colors"><i className="devicon-nodejs-plain"></i></div>
+    <div className="tool-icon hover:text-cyan-400 transition-colors"><i className="devicon-mysql-plain"></i></div>
+    <div className="tool-icon hover:text-cyan-400 transition-colors"><i className="devicon-mongodb-plain"></i></div>
+    <div className="tool-icon hover:text-cyan-400 transition-colors"><i className="devicon-azure-plain"></i></div>
+  </div>
+</section>
+
+
+
 
       <section id="experience" className="max-w-5xl mx-auto px-8 py-24 relative">
         <div className="top-hover-zone absolute top-0 left-0 w-full h-[70px] z-20 cursor-pointer"></div>
@@ -381,18 +472,68 @@ const Portfolio = () => {
           </svg>
           <div className="w-full relative space-y-16">
             <div className="timeline-item w-11/12 md:w-5/12 p-6 rounded-lg bg-[#112240] shadow-lg border border-cyan-300/20">
-              <h3 className="text-2xl font-semibold mb-2 text-cyan-300">Frontend Developer</h3>
-              <span className="text-cyan-400 font-medium">Stark Industries - 2023 to Present</span>
-              <p className="text-cyan-200/80 mt-2">Developed scalable React apps with smooth GSAP animations.</p>
+              <h3 className="text-2xl font-semibold mb-2 text-cyan-300">Full Stack Developer</h3>
+              <span className="text-cyan-400 font-medium">T.H.I.R.D Y.E.A.R - 2024 to Present</span>
+              <p className="text-cyan-200/80 mt-2">Developed scalable React apps and full stack applications.</p>
             </div>
             <div className="timeline-item w-11/12 md:w-5/12 p-6 rounded-lg bg-[#112240] shadow-lg border border-cyan-300/20 ml-auto">
-              <h3 className="text-2xl font-semibold mb-2 text-cyan-300">UI Engineer</h3>
-              <span className="text-cyan-400 font-medium">S.H.I.E.L.D. - 2021 to 2023</span>
-              <p className="text-cyan-200/80 mt-2">Implemented reusable UI components and interactive animations.</p>
+              <h3 className="text-2xl font-semibold mb-2 text-cyan-300">Data Engineer</h3>
+              <span className="text-cyan-400 font-medium">F.I.N.A.L Y.E.A.R - 2025</span>
+              <p className="text-cyan-200/80 mt-2">Created Data Pipelines ,handle ETL process and handle Data Management </p>
             </div>
+            <div className="timeline-item w-11/12 md:w-5/12 p-6 rounded-lg bg-[#112240] shadow-lg border border-cyan-300/20">
+              <h3 className="text-2xl font-semibold mb-2 text-cyan-300">Deloitte Virtual Internship</h3>
+              <span className="text-cyan-400 font-medium">F.I.N.A.L Y.E.A.R - 2025</span>
+              <p className="text-cyan-200/80 mt-2">Gained hands-on experience in coding and software development by solving real-world simulation tasks used at Deloitte via Forage</p>
+            </div>
+            
           </div>
         </div>
       </section>
+
+      {/* --- CONNECT / SOCIALS SECTION --- */}
+<section id="connect" className="max-w-5xl mx-auto px-8 py-24 relative">
+  <h2 className="text-4xl font-semibold mb-12 text-cyan-300 text-center">Connect With Me</h2>
+  <div className="flex flex-wrap justify-center gap-10 text-cyan-300 text-5xl">
+    
+    {/* LinkedIn */}
+    <a href="https://www.linkedin.com/in/siddharth-singh-b9a921259/" 
+       target="_blank" rel="noopener noreferrer"
+       className="tool-icon hover:text-cyan-400 transition-colors">
+      <i className="devicon-linkedin-plain"></i>
+    </a>
+    
+    {/* GitHub */}
+    <a href="https://github.com/siddharthsinghbaghel"
+       target="_blank" rel="noopener noreferrer"
+       className="tool-icon hover:text-cyan-400 transition-colors">
+      <i className="devicon-github-original"></i>
+    </a>
+    
+    {/* LeetCode (no devicon, use custom svg or img) */}
+    <a href="https://leetcode.com/u/siddharthsinghbaghel/"
+       target="_blank" rel="noopener noreferrer"
+       className="tool-icon hover:scale-110 transition-transform">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png" 
+           alt="LeetCode" 
+           className="w-12 h-12" />
+    </a>
+    
+    {/* Email */}
+    <a href="mailto:siddharthsingh910989@gmail.com"
+       className="tool-icon hover:text-cyan-400 transition-colors">
+      📧
+    </a>
+    
+    {/* Phone */}
+    <a href="tel:9109897014"
+       className="tool-icon hover:text-cyan-400 transition-colors">
+      📱
+    </a>
+    
+  </div>
+</section>
+
 
       <section id="contact" className="max-w-5xl mx-auto px-8 py-24 relative">
         <div className="top-hover-zone absolute top-0 left-0 w-full h-[70px] z-20 cursor-pointer"></div>
