@@ -4,7 +4,7 @@ import { ScrollTrigger } from "https://esm.sh/gsap/ScrollTrigger";
 import { ScrollToPlugin } from "https://esm.sh/gsap/ScrollToPlugin";
 import { TextPlugin } from "https://esm.sh/gsap/TextPlugin";
 import * as Tone from 'https://cdn.skypack.dev/tone';
-import myPhoto from "../src/assets/myPhoto.jpg";
+import myPhoto from "./assets/myphoto.jpg";
 import "./App.css";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, TextPlugin);
