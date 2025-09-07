@@ -134,17 +134,17 @@ const Portfolio = () => {
   const containerRef = useRef(null);
   const projectHoverTimeout = useRef(null);
 
-  const handleProjectMouseEnter = (url) => {
-    // Set a timer to open the URL after 2 seconds
-    projectHoverTimeout.current = setTimeout(() => {
-      window.open(url, '_blank', 'noopener,noreferrer');
-    }, 2000); // 2000 milliseconds = 2 seconds
-  };
+  const handleProjectMouseEnter = (url) => {
+    // Set a timer to open the URL after 2 seconds
+    projectHoverTimeout.current = setTimeout(() => {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }, 2000); // 2000 milliseconds = 2 seconds
+  };
 
-  const handleProjectMouseLeave = () => {
-    // If the mouse leaves before 2 seconds, cancel the timer
-    clearTimeout(projectHoverTimeout.current);
-  };
+  const handleProjectMouseLeave = () => {
+    // If the mouse leaves before 2 seconds, cancel the timer
+    clearTimeout(projectHoverTimeout.current);
+  };
   const handleNavClick = (e, id) => {
     e.preventDefault();
     const section = document.getElementById(id);
@@ -310,7 +310,8 @@ const Portfolio = () => {
   
 
   return (
-    <div ref={containerRef} className="font-mono text-cyan-200 bg-[#0A192F] min-h-screen selection:bg-cyan-500 selection:text-slate-900 md:cursor-none">
+    // CHANGE 1: Added overflow-x-hidden to prevent horizontal scrolling
+    <div ref={containerRef} className="font-mono text-cyan-200 bg-[#0A192F] min-h-screen selection:bg-cyan-500 selection:text-slate-900 md:cursor-none overflow-x-hidden">
       <CustomCursor />
 
       <div className="fixed top-0 left-0 w-full h-full -z-10 bg-grid"></div>
@@ -319,7 +320,8 @@ const Portfolio = () => {
   {/* Sci-fi background effect */}
   <div className="absolute inset-0 jarvis-bg"></div>
   
-  <div className="text-2xl font-bold text-cyan-300 w-96 text-center h-8 z-10">
+  {/* CHANGE 2: Made the loader text container responsive */}
+  <div className="text-2xl font-bold text-cyan-300 w-full max-w-sm px-4 text-center h-8 z-10">
     <div className="loader-text-item relative w-full opacity-0">Initializing J.A.R.V.I.S. Protocol...</div>
     <div className="loader-text-item relative w-full opacity-0">Calibrating Arc Reactor...</div>
     <div className="loader-text-item absolute w-full opacity-0">Welcome, Siddharth</div>
@@ -357,30 +359,30 @@ const Portfolio = () => {
       </section>
 
   {/* --- REPLACEMENT FOR PROJECTS SECTION --- */}
-      <section id="projects" className="max-w-5xl mx-auto px-8 py-24 space-y-8 relative">
-        <div className="top-hover-zone absolute top-0 left-0 w-full h-[70px] z-20 cursor-pointer"></div>
-        <h2 className="text-4xl font-semibold mb-8 text-cyan-300">Projects</h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          {[
-            { title: 'Project MARK I', description: 'Ride Hailing Application - Sawari', url: 'https://sawari-ui.onrender.com' },
-            { title: 'Project MARK II', description: 'Video Conferencing Application - InstaMeet', url: 'https://zoomyfrontend.onrender.com' },
-            { title: 'Project MARK III', description: 'Swiggy Revenue Generator Dashboard by Streamlit', url: '#' },
-            { title: 'Project MARK IV', description: 'Random GIF generator - RGG', url: 'https://random-gif-generator-ui.onrender.com' },
+      <section id="projects" className="max-w-5xl mx-auto px-8 py-24 space-y-8 relative">
+        <div className="top-hover-zone absolute top-0 left-0 w-full h-[70px] z-20 cursor-pointer"></div>
+        <h2 className="text-4xl font-semibold mb-8 text-cyan-300">Projects</h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          {[
+            { title: 'Project MARK I', description: 'Ride Hailing Application - Sawari', url: 'https://sawari-ui.onrender.com' },
+            { title: 'Project MARK II', description: 'Video Conferencing Application - InstaMeet', url: 'https://zoomyfrontend.onrender.com' },
+            { title: 'Project MARK III', description: 'Swiggy Revenue Generator Dashboard by Streamlit', url: '#' },
+            { title: 'Project MARK IV', description: 'Random GIF generator - RGG', url: 'https://random-gif-generator-ui.onrender.com' },
             { title: 'Project MARK V', description: 'AI-Finance Platform - ArthiQ', url: 'http://finance-5zsxx2vn0-siddharth-singh-baghels-projects.vercel.app' }
-          ].map((project) => (
-            <div
-              key={project.title}
-              className="project-card bg-[#112240] p-6 rounded-lg shadow-lg cursor-pointer border border-cyan-300/20 hover:border-cyan-300 transition-all relative overflow-hidden"
-              onMouseEnter={() => handleProjectMouseEnter(project.url)}
-              onMouseLeave={handleProjectMouseLeave}
-            >
-              <div className="scanline"></div>
-              <h3 className="text-xl font-semibold mb-3 text-cyan-300">{project.title}</h3>
-              <p className="text-cyan-200/80">{project.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+          ].map((project) => (
+            <div
+              key={project.title}
+              className="project-card bg-[#112240] p-6 rounded-lg shadow-lg cursor-pointer border border-cyan-300/20 hover:border-cyan-300 transition-all relative overflow-hidden"
+              onMouseEnter={() => handleProjectMouseEnter(project.url)}
+              onMouseLeave={handleProjectMouseLeave}
+            >
+              <div className="scanline"></div>
+              <h3 className="text-xl font-semibold mb-3 text-cyan-300">{project.title}</h3>
+              <p className="text-cyan-200/80">{project.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <section id="skills" className="max-w-5xl mx-auto px-8 py-24 relative">
         <div className="top-hover-zone absolute top-0 left-0 w-full h-[70px] z-20 cursor-pointer"></div>
@@ -442,7 +444,7 @@ const Portfolio = () => {
           </div>
         </div>
       </section>
-                 {/* --- TOOLS & TECHNOLOGIES --- */}
+                  {/* --- TOOLS & TECHNOLOGIES --- */}
       <section id="tools" className="max-w-5xl mx-auto px-8 py-24 relative">
   <h2 className="text-4xl font-semibold mb-12 text-cyan-300">Tools & Technologies</h2>
   <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-8 text-cyan-300 text-5xl justify-items-center">
@@ -476,7 +478,8 @@ const Portfolio = () => {
               <span className="text-cyan-400 font-medium">T.H.I.R.D Y.E.A.R - 2024 to Present</span>
               <p className="text-cyan-200/80 mt-2">Developed scalable React apps and full stack applications.</p>
             </div>
-            <div className="timeline-item w-11/12 md:w-5/12 p-6 rounded-lg bg-[#112240] shadow-lg border border-cyan-300/20 ml-auto">
+            {/* CHANGE 3: Changed ml-auto to md:ml-auto to stack correctly on mobile */}
+            <div className="timeline-item w-11/12 md:w-5/12 p-6 rounded-lg bg-[#112240] shadow-lg border border-cyan-300/20 md:ml-auto">
               <h3 className="text-2xl font-semibold mb-2 text-cyan-300">Data Engineer</h3>
               <span className="text-cyan-400 font-medium">F.I.N.A.L Y.E.A.R - 2025</span>
               <p className="text-cyan-200/80 mt-2">Created Data Pipelines ,handle ETL process and handle Data Management </p>
