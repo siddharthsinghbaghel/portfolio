@@ -364,11 +364,11 @@ const Portfolio = () => {
         <h2 className="text-4xl font-semibold mb-8 text-cyan-300">Projects</h2>
         <div className="grid md:grid-cols-3 gap-8">
           {[
-            { title: 'Project MARK I', description: 'Ride Hailing Application - Sawari', url: 'https://sawari-ui.onrender.com' },
+            { title: 'Project MARK I', description: 'Ride Hailing Application - Sawari', url: ' https://sawari-front.onrender.com/ ' },
             { title: 'Project MARK II', description: 'Video Conferencing Application - InstaMeet', url: 'https://zoomyfrontend.onrender.com' },
             { title: 'Project MARK III', description: 'Swiggy Revenue Generator Dashboard by Streamlit', url: '#' },
             { title: 'Project MARK IV', description: 'Random GIF generator - RGG', url: 'https://random-gif-generator-ui.onrender.com' },
-            { title: 'Project MARK V', description: 'AI-Finance Platform - ArthiQ', url: 'http://finance-5zsxx2vn0-siddharth-singh-baghels-projects.vercel.app' }
+            { title: 'Project MARK V', description: 'AI-Finance Platform - ArthiQ', url: 'https://finance-seven-puce.vercel.app/' }
           ].map((project) => (
             <div
               key={project.title}
