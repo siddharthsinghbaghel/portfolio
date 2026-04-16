@@ -1038,7 +1038,7 @@ const Portfolio = () => {
       tag: 'educational Platform', 
       desc: 'educational Platform (code with sid).', 
       tech: ['Next js', 'JavaScript', 'Node js', 'Langchain', 'Gemini api', 'MongoDB'],
-      url: 'https://cws-bhm3-git-master-siddharth-singh-baghels-projects.vercel.app/',
+      url: 'https://cws-bhm3.vercel.app/',
       image: 'cws.png', 
       color: 'from-purple-400 to-red-500'
     }
