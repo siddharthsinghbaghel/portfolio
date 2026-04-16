@@ -1032,6 +1032,15 @@ const Portfolio = () => {
       url: '#',
       image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop', 
       color: 'from-orange-400 to-red-500'
+    },
+    { 
+      title: 'CWS', 
+      tag: 'educational Platform', 
+      desc: 'educational Platform (code with sid).', 
+      tech: ['Next js', 'JavaScript', 'Node js', 'Langchain', 'Gemini api', 'MongoDB'],
+      url: 'https://cws-bhm3-git-master-siddharth-singh-baghels-projects.vercel.app/',
+      image: 'cws.png', 
+      color: 'from-purple-400 to-red-500'
     }
   ];
 
