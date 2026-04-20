@@ -906,6 +906,8 @@ import sawariImg from "./assets/sawari_1.png";
 import zoomImg from "./assets/zoom_1.png";
 import arthiqImg from "./assets/arthiq_1.png";
 import rggImg from "./assets/rgg_1.png";
+import cwsImg from "./assets/cws.png";
+import redflagImg from "./assets/redflag.png";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -1039,7 +1041,24 @@ const Portfolio = () => {
       desc: 'educational Platform (code with sid).', 
       tech: ['Next js', 'JavaScript', 'Node js', 'Langchain', 'Gemini api', 'MongoDB'],
       url: 'https://cws-bhm3.vercel.app/',
-      image: 'cws.png', 
+      image: cwsImg, 
+      color: 'from-purple-400 to-red-500'
+    },
+    { 
+      title: 'Legal/contract red-flagger', 
+      tag: 'red-flagger', 
+      desc: 'it anlayze the red-flags in any documents', 
+      tech: [ 'Python', 'LangChain', 'FAISS', 'Streamlit'],
+      url: 'https://siddharth-red-flagger.streamlit.app/',
+      image: redflagImg, 
+      color: 'from-purple-400 to-red-500'
+    },
+    { 
+      title: 'Telepath-AI', 
+      tag: 'hand gesture recognition', 
+      desc: 'it recognise hand gesture and control the cursor of PC', 
+      tech: [ 'Python', 'OpenCV', 'MediaPipe'],
+      url: 'https://siddharth-red-flagger.streamlit.app/', 
       color: 'from-purple-400 to-red-500'
     }
   ];
