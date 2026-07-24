@@ -143,25 +143,25 @@ React • REST API
 
 ## 🚖 Sawari
 
-![Sawari](./assets/sawari_1.png)
+![Sawari](./src/assets/sawari_1.png)
 
 ---
 
 ## 🎓 CWS
 
-![CWS](./assets/cws.png)
+![CWS](./src/assets/cws.png)
 
 ---
 
 ## ⚖️ Legal Contract Red Flagger
 
-![Red Flagger](./assets/redflag.png)
+![Red Flagger](./src/assets/redflag.png)
 
 ---
 
 ## 🎲 Random GIF Generator
 
-![Random Gif](./assets/rgg_1.png)
+![Random Gif](./src/assets/rgg_1.png)
 
 # 💡 What I Love Building
 
